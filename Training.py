@@ -1,13 +1,13 @@
-import Dataset
-import HelperFunctions
-import Seq2Seq
+import supportFiles.Dataset as Dataset
+import supportFiles.HelperFunctions as HelperFunctions
+import supportFiles.Seq2Seq as Seq2Seq
 import torch
 import torch.nn as nn
 from tqdm import tqdm
 
 
 def startTraining():
-    input_texts, target_texts = HelperFunctions.read_dataset("./eng-chin.txt")
+    input_texts, target_texts = HelperFunctions.read_dataset("Dataset/eng-chin.txt")
     english,chinese = HelperFunctions.tokenize_sentences(input_texts, target_texts)
     input_tokenizer, output_tokenizer = HelperFunctions.build_vocab(english,chinese)
     max_english_length = HelperFunctions.count_max_sentence_len(english)

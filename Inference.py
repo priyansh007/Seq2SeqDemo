@@ -1,14 +1,14 @@
 from nltk.tokenize import WordPunctTokenizer
 import torch
-import HelperFunctions
-import Seq2Seq
+import supportFiles.HelperFunctions as HelperFunctions
+import supportFiles.Seq2Seq as Seq2Seq
 
 def translate(eng_sent):
     # Set up the inputs and variables
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     tk = WordPunctTokenizer()
-    input_texts, target_texts = HelperFunctions.read_dataset("./eng-chin.txt")
+    input_texts, target_texts = HelperFunctions.read_dataset("./Dataset/eng-chin.txt")
     english,chinese = HelperFunctions.tokenize_sentences(input_texts, target_texts)
     input_tokenizer, output_tokenizer = HelperFunctions.build_vocab(english,chinese)
     max_english_length = HelperFunctions.count_max_sentence_len(english)
@@ -71,7 +71,7 @@ def translate(eng_sent):
     return output_tokenizer.inverse_transform(dec_in[0], is_tensor=True)
 
 
-sent = "I dont know"
+sent = "Why lemons are yellow,and this assignment is hard"
 translated = translate(sent)
 translated_sent = "".join([word for word in translated if word != "<SOS>" and word != "<EOS>"and word != "<PAD>" and word!="<UNK>"])
 print(f"{sent} -> \n{translated_sent}")

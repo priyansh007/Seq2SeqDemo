@@ -1,13 +1,10 @@
-import numpy as np
-import torch.nn as nn
 from nltk.tokenize import WordPunctTokenizer
-from torch.utils.data import Dataset, DataLoader
-import torch.nn.functional as F
+from torch.utils.data import DataLoader
 import pandas as pd
 import torch
-import Word2Sequence
+import supportFiles.Word2Sequence as Word2Sequence
 
-def read_dataset(path="./eng-chin.txt"):
+def read_dataset(path="./Dataset/eng-chin.txt"):
     df = pd.read_table(path,header=None).iloc[:,:]
     df = df.drop([2],axis=1)
     df.columns=['english','chinese']
